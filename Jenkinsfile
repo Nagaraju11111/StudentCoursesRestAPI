@@ -1,6 +1,6 @@
 pipeline {
-    Agent { label 'DOCKER'}
-    trigeers { pollScm('* * * * 1-5')}
+    agent { label 'DOCKER'}
+    trigeers { pollScm('* * * * 1-5') }
     stages {
         stage ('vcs') {
             steps {
@@ -8,7 +8,7 @@ pipeline {
                     branch: 'master'
             }
         }
-        stage ('image buld') {
+        stage ('image build') {
             steps {
                 sh """
                     docker image build -t src:1.0 .
@@ -17,7 +17,7 @@ pipeline {
                 """
             }
         }
-           stage ('image buld') {
+           stage ('container') {
             steps {
                 sh """
                     docker image ls
