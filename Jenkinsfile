@@ -1,10 +1,10 @@
 pipeline {
     agent { label 'DOCKER'}
-    trigeers { pollScm('* * * * 1-5') }
+    triggers { pollScm('* * * * 1-5') }
     stages {
         stage ('vcs') {
             steps {
-                git url: 'git@github.com:Nagaraju11111/StudentCoursesRestAPI.git'
+                git url: 'git@github.com:Nagaraju11111/StudentCoursesRestAPI.git',
                     branch: 'master'
             }
         }
