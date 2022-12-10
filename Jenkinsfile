@@ -1,6 +1,6 @@
 pipeline {
     agent { label 'DOCKER'}
-    triggers { pollScm('* * * * 1-5') }
+    triggers { pollSCM('* * * * 1-5') }
     stages {
         stage ('vcs') {
             steps {
