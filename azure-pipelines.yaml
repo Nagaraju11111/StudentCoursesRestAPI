@@ -10,6 +10,8 @@ stages:
           - script: | 
               docker image build -t src2:1.0 .
               docker image tag src2:1.0 9052171017/src2:1.0
+              docker login -u 9052171017
+              dckr_pat_zZNu495PxSPDieVPYASP9kzCVAw
               docker image push 9052171017/src2:1.0
   - stage: container
     jobs:
@@ -19,3 +21,4 @@ stages:
               docker image ls
               docker image pull 9052171017/src2:1.0
               docker container run -d -P --name sc1 9052171017/src2:1.0
+              docker container ls
