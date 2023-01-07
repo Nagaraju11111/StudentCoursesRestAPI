@@ -1,0 +1,61 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: src-db
+spec:
+  minReadySeconds: 10
+  replicas: 4
+  selector:
+    matchLabels:
+      app: srcdb
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      name: srcdb 
+      labels:
+        app: srcdb 
+        ver: "1.0"
+    spec:
+      containers:
+        - image: mysql:5.7
+          name: db-container
+          ports:
+            - containerPort: 3306
+              name: src 
+              protocol: TCP
+          env:
+            - name:  MYSQL_USERNAME
+              value: devops
+            - name: MYSQL_PASSWORD
+              value: devops 
+            - name:  MYSQL_DATABASE
+              value: naveen
+            - name:  MYSQL_ROOT_PASSWORD
+              value: devops 
+          volumeMounts: 
+            - mountPath: /var/lib/sql
+              name: sql-src 
+​      volumes: 
+        - name: sql-src
+          persistentVolumeClaim:
+              claimName: src-pvc
+              readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: src-cip
+spec:
+  type: ClusterIP
+  selector:
+    app: srcdb 
+  ports:
+     - name: db-port
+       port: 5000
+       protocol: TCP
+       targetPort: 3306
