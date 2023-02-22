@@ -16,7 +16,6 @@ stages:
               command: 'buildAndPush' 
               Dockerfile: 'Dockerfile' 
               tags: | 
-                '$(Build.BuildId)'
                 '$(Build.BuildNumber)'
 
   
