@@ -12,7 +12,7 @@ stages:
           - task: Docker@2
             inputs:
               containerRegistry: acr_id 
-              repository: src-image
+              repository: src
               command: 'buildAndPush' 
               Dockerfile: 'Dockerfile' 
               tags: | 
