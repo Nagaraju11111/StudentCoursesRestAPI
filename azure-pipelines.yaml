@@ -12,10 +12,9 @@ stages:
           - task: Docker@2
             inputs:
               containerRegistry: acr_id 
-              repository: qtdevops407.azurecr.io/src
+              repository: src
               command: 'buildAndPush' 
               Dockerfile: 'Dockerfile' 
-              tags: | 
-                '$(Build.BuildNumber)'
+              tags: $(Build.BuildNumber)
 
   
