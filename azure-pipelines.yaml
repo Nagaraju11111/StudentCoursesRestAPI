@@ -14,7 +14,7 @@ stages:
           - task: Docker@2
             inputs:
               containerRegistry: acr_id 
-              repository: src-image
+              repository: src
               command: 'buildAndPush' 
               Dockerfile: 'Dockerfile' 
               tags: '$(Build.BuildId)' 
@@ -41,6 +41,7 @@ stages:
               command: apply 
               useConfigurationFile: true 
               configurationType: configuration 
-              configuration: k8s/deployment.yaml            
+              configuration: k8s/depolyment.yaml            
+          
 
   
