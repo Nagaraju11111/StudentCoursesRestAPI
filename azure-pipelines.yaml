@@ -33,14 +33,6 @@ stages:
               command: apply 
               useConfigurationFile: true 
               configurationType: configuration 
-              configuration: k8s/secrets.yaml
-          - task: Kubernetes@1 
-            inputs: 
-              connectionType: Kubernetes Service Connection 
-              kubernetesServiceEndpoint : k8s_id 
-              command: apply 
-              useConfigurationFile: true 
-              configurationType: configuration 
               configuration: k8s/depolyment.yaml            
           
 

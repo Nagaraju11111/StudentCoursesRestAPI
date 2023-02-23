@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: src-app
-          image: qtdevops407.azurecr.io/src:39
+          image: qtdevops407.azurecr.io/src:42
           ports:
             - containerPort: 5000
               protocol: TCP 
