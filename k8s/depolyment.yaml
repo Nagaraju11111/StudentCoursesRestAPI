@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: src-ser
+spec:
+  minReadySeconds: 10
+  replicas: 2
+  selector:
+    matchLabels:
+      app: src 
+  template:
+    metadata:
+      name: src-pod
+      labels:
+        app: src    
+    spec:
+      containers:
+        - name: src-app
+          image: qtdevops407.azurecr.io/src:39
+          ports:
+            - containerPort: 5000
+              protocol: TCP 
+      imagePullSecrets:
+        - name: naveen        
+

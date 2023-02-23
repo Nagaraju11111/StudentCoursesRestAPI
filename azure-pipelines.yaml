@@ -2,12 +2,14 @@
 trigger:  
   - develop 
 
-pool: default
-
 stages:
   - stage: build 
     jobs:
-      - job: imagebuild
+      - job: imagebuild 
+        pool: 
+          name: default 
+          demands:
+            - Agent.Name -equals ram
         steps:
           - task: Docker@2
             inputs:
@@ -15,8 +17,30 @@ stages:
               repository: src-image
               command: 'buildAndPush' 
               Dockerfile: 'Dockerfile' 
-              tags: | 
-                '$(Build.BuildId)'
-                '$(Build.BuildNumber)'
+              tags: '$(Build.BuildId)' 
+  - stage: Deploy
+    jobs:
+      - job: imagedeploy 
+        pool: 
+          name: default 
+          demands:
+            - Agent.Name -equals sai 
+        steps:
+          - task: Kubernetes@1 
+            inputs: 
+              connectionType: Kubernetes Service Connection 
+              kubernetesServiceEndpoint : k8s_id 
+              command: apply 
+              useConfigurationFile: true 
+              configurationType: configuration 
+              configuration: k8s/secrets.yaml
+          - task: Kubernetes@1 
+            inputs: 
+              connectionType: Kubernetes Service Connection 
+              kubernetesServiceEndpoint : k8s_id 
+              command: apply 
+              useConfigurationFile: true 
+              configurationType: configuration 
+              configuration: k8s/deployment.yaml            
 
   
