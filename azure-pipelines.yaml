@@ -15,6 +15,6 @@ stages:
               repository: src
               command: 'buildAndPush' 
               Dockerfile: 'Dockerfile' 
-              tags: $(Build.BuildNumber)
+              tags: $(Build.Buildid)
 
   
