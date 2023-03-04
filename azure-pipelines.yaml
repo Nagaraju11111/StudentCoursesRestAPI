@@ -1,17 +1,15 @@
 ---
 trigger:  
   - develop 
-parameters:
+
+pool: 
+  name: default
     
 
 stages:
   - stage: build 
     jobs:
       - job: imagebuild 
-        pool: 
-          name: default 
-          demands:
-            - Agent.Name -equals ram
         steps:
           - task: Docker@2
             inputs:
@@ -23,10 +21,6 @@ stages:
   - stage: Deploy
     jobs:
       - job: imagedeploy 
-        pool: 
-          name: default 
-          demands:
-            - Agent.Name -equals sai 
         steps:
           - task: Kubernetes@1 
             inputs: 
