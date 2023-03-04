@@ -3,7 +3,15 @@ trigger:
   - develop 
 
 pool: 
-  name: default
+  name: default 
+
+resources:
+  repositories:
+    - repository: dockerfile 
+      name: Nagaraju11111/learninggit 
+      type: github 
+      endpoint: github_id 
+      ref: 'refs/heads/main'  
     
 
 stages:
@@ -11,12 +19,13 @@ stages:
     jobs:
       - job: imagebuild 
         steps:
+          - checkout: dockerfile 
           - task: Docker@2
             inputs:
               containerRegistry: acr_id 
               repository: src
               command: 'buildAndPush' 
-              Dockerfile: 'Dockerfile' 
+              Dockerfile: 'azuredevops/Dockerfile' 
               tags: '$(Build.BuildId)'
   - stage: Deploy
     jobs:
