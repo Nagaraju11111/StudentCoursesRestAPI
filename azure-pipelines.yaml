@@ -1,6 +1,8 @@
 ---
 trigger:  
   - develop 
+parameters:
+    
 
 stages:
   - stage: build 
@@ -17,7 +19,7 @@ stages:
               repository: src
               command: 'buildAndPush' 
               Dockerfile: 'Dockerfile' 
-              tags: '$(Build.BuildId)' 
+              tags: '$(Build.BuildId)'
   - stage: Deploy
     jobs:
       - job: imagedeploy 
